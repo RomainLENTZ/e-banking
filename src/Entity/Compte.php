@@ -18,8 +18,6 @@ class Compte
     #[ORM\Column(length: 15)]
     private ?string $numero = null;
 
-
-
     #[ORM\Column(length: 255)]
     private ?string $typeDeCompte = null;
 
