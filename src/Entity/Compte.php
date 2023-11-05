@@ -19,6 +19,7 @@ class Compte
     private ?string $numero = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message: 'Vous devez renseigner un type de compte')]
     private ?string $typeDeCompte = null;
 
     #[ORM\Column]
@@ -34,11 +35,14 @@ class Compte
     private Collection $operations;
 
     #[ORM\ManyToOne(inversedBy: 'comptes')]
+    #[Assert\NotNull(message: 'Vous devez renseigner un détenteur de compte')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $detenteur = null;
 
     public function __construct()
     {
+        $this->montant = 0;
+        $this->numero = rand(1000, 9999);
         $this->virementsRecu = new ArrayCollection();
         $this->virementsEnvoyes = new ArrayCollection();
         $this->operations = new ArrayCollection();

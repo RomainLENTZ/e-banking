@@ -46,6 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->rib = rand(1000, 9999);
+        $this->roles = ['ROLE_USER'];
         $this->comptes = new ArrayCollection();
     }
 
