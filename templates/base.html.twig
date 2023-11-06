@@ -12,7 +12,39 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body class="d-flex">
+        {% block sidebar %}
+            <div class="d-flex flex-column flex-shrink-0 p-3 sidebar" style="width: 280px;">
+                <a href="{{ path('app_compte') }}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <img src="{{ asset('build/images/y_logo.png') }}" alt="" width="50px">
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="{{ path('app_compte') }}" class="nav-link active" aria-current="page">
+                            <i class="fa-solid fa-wallet"></i> <span class="mx-2">Comptes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <i class="fa-solid fa-right-left"></i> <span class="mx-2">Virements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <i class="fa-solid fa-turn-down"></i> <span class="mx-2">Opérations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <i class="fa-solid fa-handshake-angle"></i> <span class="mx-2">Empruns</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <a class="link" href="{{ path('app_logout') }}">Se déconnecter</a>
+            </div>
+        {% endblock %}
         {% block body %}{% endblock %}
     </body>
 </html>

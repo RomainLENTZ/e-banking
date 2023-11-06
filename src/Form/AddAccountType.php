@@ -23,9 +23,9 @@ class AddAccountType extends AbstractType
                 'label' => 'Type de compte',
                 'required' => true,
                 'choices' => [
-                    'Compte courant' => 'compte_courant',
-                    'Compte épargne' => 'compte_epargne',
-                    'Compte titre' => 'compte_titre',
+                    'Compte courant' => 'Compte courant',
+                    'Compte épargne' => 'Compte épargne',
+                    'Compte titre' => 'Compte titre',
                 ]
             ])
             ->add('detenteur', EntityType::class, [

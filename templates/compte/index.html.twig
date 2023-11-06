@@ -1,19 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CompteController!{% endblock %}
+{% block title %}Y | Mon compte{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Mes comptes</h1>
+<div class="page-compte container-small">
+    <h1 class="fw-bold">Mes comptes</h1>
 
     {% if comptes is not empty %}
         {% for compte in comptes %}
-            <p>{{ compte.numero }}</p>
+            <div class="card my-5">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title fw-bold">{{ compte.typeDeCompte }}</h5>
+                        <p class="{% if compte.montant > 0 %}green{% else %}red{% endif %}">{{ compte.montant | number_format(2, ',', ' ') }} €</p>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ compte.numero }}</h6>
+
+                </div>
+            </div>
         {% endfor %}
     {% else %}
 
