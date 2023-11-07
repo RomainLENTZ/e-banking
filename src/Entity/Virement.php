@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\VirementRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VirementRepository::class)]
 class Virement
@@ -26,7 +27,15 @@ class Virement
     private ?Compte $compteEmetteur = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message: 'Vous devez renseigner un montant')]
+    #[Assert\Positive(message: 'Le montant ne peux pas être négatif')]
     private ?float $montant = null;
+
+
+    public function __construct()
+    {
+        $this->date = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
