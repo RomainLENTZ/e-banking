@@ -39,6 +39,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function findComptesCourantsByUser(User $user)
+    {
+        return $this->createQueryBuilder('u')
+            ->join('u.comptes', 'c')
+            ->andWhere('c.typeDeCompte = :type')
+            ->setParameter('type', 'Compte courant')
+            ->andWhere('u = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

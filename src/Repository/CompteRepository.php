@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Compte;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,6 +21,21 @@ class CompteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Compte::class);
     }
+
+
+    public function findComptesCourantsByUser(User $user)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.typeDeCompte = :type')
+            ->setParameter('type', 'Compte courant')
+            ->andWhere('c.detenteur = :user')
+            ->setParameter('user', $user)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
 //    /**
 //     * @return Compte[] Returns an array of Compte objects

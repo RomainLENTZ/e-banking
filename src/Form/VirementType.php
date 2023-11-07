@@ -22,8 +22,9 @@ class VirementType extends AbstractType
                 'label' => 'Je fais un virement de',
                 'required' => true,
             ])
-            ->add('compteBeneficiaire', EntityType::class, [
+            ->add('utilisateurBeneficiaire', EntityType::class, [
                 'class' => User::class,
+                'mapped' => false,
                 'choice_label' => function ($user) {
                     return $user->getNom() . ' ' . $user->getPrenom();
                 },
