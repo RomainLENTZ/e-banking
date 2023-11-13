@@ -6,6 +6,7 @@ use App\Entity\Virement;
 use App\Form\VirementType;
 use App\Repository\CompteRepository;
 use App\Repository\UserRepository;
+use App\Repository\VirementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,10 +16,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class VirementController extends AbstractController
 {
     #[Route('/virements', name: 'app_virements')]
-    public function index(): Response
+    public function index(CompteRepository $compteRepository): Response
     {
+        $user = $this->getUser();
+        $compteCourant = $compteRepository->findComptesCourantsByUser($user);
+        $allVirementsEmis = $compteCourant[0]->getVirementsEnvoyes();
+        $allVirementsRecu = $compteCourant[0]->getVirementsRecu();
         return $this->render('virement/index.html.twig', [
-            'controller_name' => 'VirementController',
+            'allVirementsEmis' => $allVirementsEmis,
+            'allVirementsRecu' => $allVirementsRecu
         ]);
     }
 

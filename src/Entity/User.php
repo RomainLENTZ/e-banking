@@ -43,8 +43,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'detenteur', targetEntity: Compte::class, orphanRemoval: true)]
     private Collection $comptes;
 
+    #[ORM\Column(length: 7, nullable: true)]
+    private ?string $color = null;
+
+
     public function __construct()
     {
+        $this->color = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
         $this->rib = rand(1000, 9999);
         $this->roles = ['ROLE_USER'];
         $this->comptes = new ArrayCollection();
@@ -182,6 +187,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $compte->setDetenteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): static
+    {
+        $this->color = $color;
 
         return $this;
     }

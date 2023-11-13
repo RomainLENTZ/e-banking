@@ -1,0 +1,114 @@
+$blue : rgb(29, 155, 240);
+$green : rgb(0, 186, 124);
+
+html{
+  height: 100%;
+}
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.link{
+  color: $blue;
+  text-decoration: none;
+  transition: ease 0.3s;
+}
+
+.btn-blue{
+  background-color: $blue;
+  color: white;
+  border-radius: 200px;
+  width: 300px;
+  font-size: 15px;
+  font-weight: bold;
+  transition: ease 0.3s;
+
+  &:hover{
+    background-color: white;
+    color: $blue;
+    border: solid 1px #cecece;
+  }
+}
+
+.btn-white-blue{
+  background-color: white;
+  color: $blue;
+  border-radius: 200px;
+  border: solid 1px #cecece;
+  width: 300px;
+  font-size: 15px;
+  font-weight: bold;
+
+  &:hover{
+    background-color: $blue;
+    color: white;
+    transition: ease 0.3s;
+  }
+}
+
+
+.sidebar{
+  border-right: solid 1px #dcdcdc;
+
+  .nav-link{
+    font-size: 20px;
+    &:hover{
+      background-color: #dedede;
+    }
+  }
+
+  .active{
+    background-color: transparent!important;
+    color: black!important;
+    font-weight: bold;
+  }
+}
+
+.green{
+  color: $green;
+}
+
+.red{
+  color : $red;
+}
+
+
+h1{
+  font-size: 64px!important;
+}
+
+.page-compte{
+  .container-large{
+    margin: 1em auto;
+    max-width: 800px;
+    width: 95%;
+    font: 18px/1.5 sans-serif;
+  }
+
+  .card{
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    border: none;
+  }
+}
+
+.page-virements{
+  table{
+    .user-profile{
+      width: 35px;
+      height: 35px;
+    }
+  }
+}
+
+.container-small{
+  margin: 1em auto;
+  max-width: 800px;
+  width: 95%;
+  font: 18px/1.5 sans-serif;
+}
+
+
+
+
+

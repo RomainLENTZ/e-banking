@@ -6,7 +6,38 @@
 
 <div class="page-virements container-small">
     <h1 class="fw-bold">Mes virements</h1>
+    <a class="btn btn-blue mb-5" href="{{ path('app_virements_add') }}">Faire un virement</a>
 
-    <a class="btn btn-blue" href="{{ path('app_virements_add') }}">Faire un virement</a>
+    <h2 class="fw-bold mb-3">Virements émis</h2>
+    <table class="w-100" >
+        <tr class="text-center border-bottom border-top">
+            <th class="text-start py-3">Montant</th>
+            <th class="text-center">Bénéficiaire</th>
+            <th class="text-end">Date</th>
+        </tr>
+            {% for virement in allVirementsEmis %}
+                <tr class="text-center border-bottom border-top ">
+                    <td class="text-start py-3">{{ virement.montant }} €</td>
+                    <td class="text-center d-flex justify-content-center align-items-center py-3"><span class="user-profile d-flex justify-content-center align-items-center rounded-circle p-2 fw-bold text-white" style="background-color: {{ virement.compteBeneficiaire.detenteur.color }}">{{ virement.compteBeneficiaire.detenteur.nom | first | upper }}{{ virement.compteBeneficiaire.detenteur.prenom  | first | upper }}</span></td>
+                    <td class="text-end">{{ virement.date | date("m/d/Y")}}</td>
+                </tr>
+            {% endfor %}
+    </table>
+
+    <h2 class="fw-bold mb-3 mt-5">Virements recus</h2>
+    <table class="w-100" >
+        <tr class="text-center border-bottom border-top">
+            <th class="text-start py-3">Montant</th>
+            <th class="text-center">Bénéficiaire</th>
+            <th class="text-end">Date</th>
+        </tr>
+        {% for virement in allVirementsRecu %}
+            <tr class="text-center border-bottom border-top ">
+                <td class="text-start py-3">{{ virement.montant }} €</td>
+                <td class="text-center d-flex justify-content-center align-items-center py-3"><span class="user-profile d-flex justify-content-center align-items-center rounded-circle p-2 fw-bold text-white" style="background-color: {{ virement.compteBeneficiaire.detenteur.color }}">{{ virement.compteBeneficiaire.detenteur.nom | first | upper }}{{ virement.compteBeneficiaire.detenteur.prenom  | first | upper }}</span></td>
+                <td class="text-end">{{ virement.date | date("m/d/Y")}}</td>
+            </tr>
+        {% endfor %}
+    </table>
 </div>
 {% endblock %}
