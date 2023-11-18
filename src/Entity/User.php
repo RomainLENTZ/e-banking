@@ -46,6 +46,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 7, nullable: true)]
     private ?string $color = null;
 
+    #[ORM\OneToMany(mappedBy: 'emprunteur', targetEntity: Emprunt::class, orphanRemoval: true)]
+    private Collection $emprunts;
+
 
     public function __construct()
     {
@@ -53,6 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->rib = rand(1000, 9999);
         $this->roles = ['ROLE_USER'];
         $this->comptes = new ArrayCollection();
+        $this->emprunts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -199,6 +203,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setColor(?string $color): static
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Emprunt>
+     */
+    public function getEmprunts(): Collection
+    {
+        return $this->emprunts;
+    }
+
+    public function addEmprunt(Emprunt $emprunt): static
+    {
+        if (!$this->emprunts->contains($emprunt)) {
+            $this->emprunts->add($emprunt);
+            $emprunt->setEmprunteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmprunt(Emprunt $emprunt): static
+    {
+        if ($this->emprunts->removeElement($emprunt)) {
+            // set the owning side to null (unless already changed)
+            if ($emprunt->getEmprunteur() === $this) {
+                $emprunt->setEmprunteur(null);
+            }
+        }
 
         return $this;
     }
