@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Y | Mes emprunts{% endblock %}
+
+{% block body %}
+
+    <div class="page-loan container-small">
+        <h1 class="fw-bold">Mes emprunts</h1>
+
+        {% if user_loans is not empty %}
+            <div class="row">
+                {% for loan in user_loans %}
+                    <div class="col-4">
+                        <div class="card my-5">
+                            <a class="card-body text-decoration-none" href="{{ path('app_pay_loan', {"id" : loan.id}) }}">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="card-title fw-bold">{{ loan.montant | number_format(2, ',', ' ')}} €</h5>
+                                </div>
+                                <h6 class="card-subtitle mb-2 text-muted">Remboursé : {{ loan.motantRembourse | number_format(2, ',', ' ')}} €</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">Échéance : {{ loan.echeance | date("m/d/Y") }}</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ ((loan.montant/loan.annuite)*loan.taux) | number_format(2, ',', ' ') }} € / mois</h6>
+
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+
+            <h2>Vous n'avez pas de comptes chez nous 🥲</h2>
+
+        {% endif %}
+
+    </div>
+{% endblock %}
