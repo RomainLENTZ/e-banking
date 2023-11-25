@@ -40,7 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $rib = null;
 
-    #[ORM\OneToMany(mappedBy: 'detenteur', targetEntity: Compte::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'detenteur', cascade: ['persist'], targetEntity: Compte::class, orphanRemoval: true)]
     private Collection $comptes;
 
     #[ORM\Column(length: 7, nullable: true)]
@@ -56,6 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->rib = rand(1000, 9999);
         $this->roles = ['ROLE_USER'];
         $this->comptes = new ArrayCollection();
+        $this->addCompte(new Compte("Compte courant"));
         $this->emprunts = new ArrayCollection();
     }
 

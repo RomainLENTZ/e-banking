@@ -42,7 +42,10 @@ class AddEmpruntType extends AbstractType
                 }
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Ajouter le pret'
+                'label' => 'Ajouter le pret',
+                'attr' => [
+                    'class' => 'btn-blue',
+                ],
             ]);
     }
 

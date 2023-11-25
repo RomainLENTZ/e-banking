@@ -3,22 +3,29 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    {% for message in app.flashes('success') %}
-    <p>{{ message }}</p>
-    {% endfor %}
-
-    <h1>Bienvenue : {{ app.user.nom }} {{ app.user.prenom }}</h1>
-
-    <h2>Que souhaitez vous faire : </h2>
-    <ul>
-        <li><a href="{{ path("app_admin_add_account") }}">Ajouter un compte</a></li>
-        <li>Your template at <code><a href="{{ 'D:/Romain/Cours Gobelins/M1/Symfony/e-banking/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
+{% for flashType, flashMessages in app.flashes %}
+    {% if flashType == 'error' %}
+        <div class="alert alert-danger">
+            {% for message in flashMessages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if flashType == 'success' %}
+        <div class="alert alert-success">
+            {% for message in flashMessages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endfor %}
+<div class="page-admin container-small">
+    <h1 class="fw-bold">Bienvenue</h1>
+    <h2 class="mb-4">Que souhaitez vous faire : </h2>
+    <div class="row admin-buttons">
+        <div class="col-4 h-100"><a class="btn btn-blue w-100 h-100 rounded-3 d-flex justify-content-center flex-column" href="{{ path("app_admin_add_account") }}"><i class="fa-solid fa-user-plus"></i><span class="mt-3">Ajouter un compte</span></a></div>
+        <div class="col-4 h-100"><a class="btn btn-blue w-100 h-100 rounded-3 d-flex justify-content-center flex-column" href="{{ path("app_admin_accounts") }}"><i class="fa-solid fa-pen-to-square"></i><span class="mt-3">Editer un compte</span></a></div>
+        <div class="col-4 h-100"><a class="btn btn-blue w-100 h-100 rounded-3 d-flex justify-content-center flex-column" href="{{ path("app_admin_add_loan") }}"><i class="fa-solid fa-plus"></i><span class="mt-3">Ajouter un virement</span></a></div>
+    </div>
 </div>
 {% endblock %}

@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Compte;
 use App\Entity\Emprunt;
+use App\Entity\User;
 use App\Form\AddAccountType;
 use App\Form\AddEmpruntType;
+use App\Form\EditUserFormType;
 use App\Repository\CompteRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,5 +75,48 @@ class AdminController extends AbstractController
         return $this->render('admin/addLoan.html.twig', [
             'form' => $form
         ]);
+    }
+
+
+    #[Route('/admin/accounts', name: 'app_admin_accounts')]
+    public function adminAccounts(UserRepository $userRepository): Response
+    {
+        return $this->render('admin/accounts.html.twig', [
+            'users' => $userRepository->findBy([], ['nom' => 'ASC'])
+        ]);
+    }
+
+
+    #[Route('/admin/accounts/{id}/edit', name: 'app_admin_accounts_edit')]
+    public function editAccounts(Request $request, User $user, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(EditUserFormType::class, $user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $user = $form->getData();
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le compte a bien été modifié');
+
+            return $this->redirectToRoute('app_admin');
+        }
+
+        return $this->render('admin/editUser.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/admin/accounts/{id}/delete', name: 'app_admin_accounts_delete')]
+    public function deleteAccounts(User $user, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'L\'utilisateur a été supprimé avec succès.');
+
+        return $this->render('admin/index.html.twig');
     }
 }

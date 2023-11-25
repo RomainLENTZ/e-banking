@@ -101,6 +101,24 @@ h1{
   }
 }
 
+.page-admin{
+  .admin-buttons{
+    height: 200px;
+
+    i{
+      font-size: 32px;
+    }
+  }
+}
+
+.page-comptes{
+  .trash-link{
+    i{
+      color: $red;
+    }
+  }
+}
+
 .container-small{
   margin: 1em auto;
   max-width: 800px;

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Y | Tous les utilisteurs{% endblock %}
+
+{% block body %}
+    <div class="page-comptes container-small">
+        <h1 class="fw-bold mb-4">Tous les utilisateurs</h1>
+        <div class="row">
+            <table class="w-100" >
+                <tr class="text-center border-bottom border-top">
+                    <th class="text-start py-3">Nom prenom</th>
+                    <th class="text-start">Email</th>
+                    <th>Action</th>
+                </tr>
+                {% for user in users %}
+                    <tr class="text-center border-bottom border-top ">
+                        <td class="text-start py-3"><a class="text-decoration-none text-black" href="{{ path('app_admin_accounts_edit', { 'id' : user.id }) }}">{{ user.nom }} {{ user.prenom }}</a></td>
+                        <td class="text-start"><a class="text-decoration-none text-black" href="{{ path('app_admin_accounts_edit', { 'id' : user.id }) }}">{{ user.email }}</a></td>
+                        <td class="text-center trash-link"><a class="text-decoration-none text-black" href="{{ path('app_admin_accounts_delete', { 'id' : user.id }) }}"><i class="fa-solid fa-trash"></i></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

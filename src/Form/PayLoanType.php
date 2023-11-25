@@ -31,7 +31,10 @@ class PayLoanType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Rembourser'
+                'label' => 'Rembourser',
+                'attr' => [
+                    'class' => 'btn-blue',
+                ],
             ]);
         ;
     }

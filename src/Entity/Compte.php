@@ -31,21 +31,18 @@ class Compte
     #[ORM\OneToMany(mappedBy: 'compteEmetteur', targetEntity: Virement::class, orphanRemoval: true)]
     private Collection $virementsEnvoyes;
 
-    #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Operation::class, orphanRemoval: true)]
-    private Collection $operations;
-
     #[ORM\ManyToOne(inversedBy: 'comptes')]
     #[Assert\NotNull(message: 'Vous devez renseigner un détenteur de compte')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $detenteur = null;
 
-    public function __construct()
+    public function __construct(string $typeDeCompte = '')
     {
         $this->montant = 0;
         $this->numero = rand(1000, 9999);
         $this->virementsRecu = new ArrayCollection();
         $this->virementsEnvoyes = new ArrayCollection();
-        $this->operations = new ArrayCollection();
+        $this->typeDeCompte = $typeDeCompte;
     }
 
     public function getId(): ?int
@@ -144,36 +141,6 @@ class Compte
             // set the owning side to null (unless already changed)
             if ($virementsEnvoye->getCompteEmetteur() === $this) {
                 $virementsEnvoye->setCompteEmetteur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Operation>
-     */
-    public function getOperations(): Collection
-    {
-        return $this->operations;
-    }
-
-    public function addOperation(Operation $operation): static
-    {
-        if (!$this->operations->contains($operation)) {
-            $this->operations->add($operation);
-            $operation->setAuteur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOperation(Operation $operation): static
-    {
-        if ($this->operations->removeElement($operation)) {
-            // set the owning side to null (unless already changed)
-            if ($operation->getAuteur() === $this) {
-                $operation->setAuteur(null);
             }
         }
 

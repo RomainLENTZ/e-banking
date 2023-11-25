@@ -44,17 +44,18 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link link-dark {% if app.request.attributes.get('_route') == 'app_operations' %}active{% endif %}">
-                                <i class="fa-solid fa-turn-down"></i> <span class="mx-2">Opérations</span>
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ path('app_loan') }}" class="nav-link link-dark">
                                 <i class="fa-solid fa-handshake-angle"></i> <span class="mx-2">Empruns</span>
                             </a>
                         </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="{{ path('app_admin') }}" class="nav-link link-dark">
+                                    <i class="fa-solid fa-building-columns"></i> <span class="mx-2">Administrer</span>
+                                </a>
+                            </li>
+                        {% endif %}
                     </ul>
-
                     <a class="link" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </div>
             {% endblock %}
