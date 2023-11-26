@@ -50,13 +50,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $emprunts;
 
 
-    public function __construct()
+    public function __construct(bool $randomAmount = false)
     {
         $this->color = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
         $this->rib = rand(1000, 9999);
         $this->roles = ['ROLE_USER'];
         $this->comptes = new ArrayCollection();
-        $this->addCompte(new Compte("Compte courant"));
+        $this->addCompte(new Compte("Compte courant", $randomAmount));
         $this->emprunts = new ArrayCollection();
     }
 

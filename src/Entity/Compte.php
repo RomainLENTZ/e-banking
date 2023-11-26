@@ -36,13 +36,17 @@ class Compte
     #[ORM\JoinColumn(nullable: false)]
     private ?User $detenteur = null;
 
-    public function __construct(string $typeDeCompte = '')
+    public function __construct(string $typeDeCompte = '', bool $randomAmount = false)
     {
         $this->montant = 0;
         $this->numero = rand(1000, 9999);
         $this->virementsRecu = new ArrayCollection();
         $this->virementsEnvoyes = new ArrayCollection();
         $this->typeDeCompte = $typeDeCompte;
+
+        if($randomAmount){
+            $this->setMontant(rand(1000, 1000000));
+        }
     }
 
     public function getId(): ?int

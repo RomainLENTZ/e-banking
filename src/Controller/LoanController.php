@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class LoanController extends AbstractController
 {
@@ -23,6 +24,7 @@ class LoanController extends AbstractController
 
 
     #[Route('/loan/{id}/pay', name: 'app_pay_loan')]
+    #[IsGranted('pay', 'emprunt', 'Oooops !!! Tu essaye de rembourser un pret qui ne t\'appartiens pas...', 404)]
     public function payLoan(Request $request, Emprunt $emprunt, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PayLoanType::class, $emprunt);
