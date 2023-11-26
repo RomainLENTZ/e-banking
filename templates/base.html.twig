@@ -44,13 +44,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ path('app_loan') }}" class="nav-link link-dark">
-                                <i class="fa-solid fa-handshake-angle"></i> <span class="mx-2">Empruns</span>
+                            <a href="{{ path('app_loan') }}" class="nav-link link-dark {% if app.request.attributes.get('_route') == 'app_loan' %}active{% endif %}">
+                                <i class="fa-solid fa-handshake-angle"></i> <span class="mx-2">Emprunts</span>
                             </a>
                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
                             <li>
-                                <a href="{{ path('app_admin') }}" class="nav-link link-dark">
+                                <a href="{{ path('app_admin') }}" class="nav-link link-dark {% if app.request.attributes.get('_route') == 'app_admin' %}active{% endif %}">
                                     <i class="fa-solid fa-building-columns"></i> <span class="mx-2">Administrer</span>
                                 </a>
                             </li>
