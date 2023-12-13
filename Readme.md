@@ -47,6 +47,17 @@ La base de données est maintenant alimentée. Vous n'avez plus qu'à lancer le 
  symfony server:start
  ````
 
+Le projet utilise le webpack encore vous pouvez l'installer avec la commande suivante :
+````
+composer require symfony/webpack-encore-bundle
+npm install
+````
+Pour compiler les assets vous pouvez utiliser la commande :
+````
+npm run watch
+````
+
+
 Quelques informations en plus :
 -
 
@@ -66,3 +77,9 @@ Les admins peuvent en plus :
 - ajouter un compte a un utilisateur (compte courant, compte epargne, compte titre)
 - Editer le profile d'un utilisateur
 - Ajouter un pret à un utilisateur
+
+
+Auto évalutation : 
+-
+
+J'ai deja pas mal utilisé symfony en entreprise sur des projets relativement complexes (gestion de bien immobilier, avec partie admin utilisant le bundle Sonata et partie public, moteur de recherche de bien...) donc les notions abordées durant ce cours étaient déjà connu et dans l'ensemble maîtrisé. C'est pourquoi je pense que mon niveau en symfony pour ce cours est aux alentours de 3.75-4/5
